@@ -7,6 +7,7 @@ import CashPickup from './components/CashPickup'
 import WaysToSend from './components/WaysToSend'
 import AppShowcase from './components/AppShowcase'
 import Testimonials from './components/Testimonials'
+import Timeline from './components/Timeline'
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <WaysToSend />
         <AppShowcase />
         <Testimonials />
+        <Timeline />
       </main>
     </div>
   )
