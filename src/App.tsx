@@ -1,6 +1,7 @@
 import Nav from './components/Nav'
 import Hero from './components/Hero'
 import StatsBar from './components/StatsBar'
+import PricingTable from './components/PricingTable'
 
 function App() {
   return (
@@ -9,6 +10,7 @@ function App() {
       <main>
         <Hero />
         <StatsBar />
+        <PricingTable />
       </main>
     </div>
   )
