@@ -13,7 +13,7 @@ const COUNTRIES = [
 export default function Calculator() {
   const [amount, setAmount] = useState('250')
   const [country, setCountry] = useState(COUNTRIES[0])
-  const fee = 2.99
+  const fee = 2.99 // display only — fee shown for transparency, not deducted from rate
   const received = ((parseFloat(amount) || 0) * country.rate).toFixed(2)
 
   return (
@@ -30,6 +30,7 @@ export default function Calculator() {
           <div className="flex items-center border border-gray-200 rounded-lg overflow-hidden">
             <input
               type="number"
+              min="0"
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
               className="flex-1 px-4 py-3 text-xl font-semibold text-gray-900 outline-none"

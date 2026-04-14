@@ -40,7 +40,7 @@ export default function Nav() {
 
         {/* CTAs */}
         <div className="hidden md:flex items-center gap-3">
-          <Button variant={scrolled ? 'ghost' : 'ghost'} size="sm" className={scrolled ? '' : 'text-white hover:text-white/80'}>
+          <Button variant="ghost" size="sm" className={scrolled ? 'text-brand-500' : 'text-white hover:text-white/80'}>
             Log in
           </Button>
           <Button variant={scrolled ? 'primary' : 'white'} size="sm">
@@ -73,7 +73,7 @@ export default function Nav() {
             </a>
           ))}
           <div className="flex gap-3 pt-2">
-            <Button variant="secondary" size="sm">Log in</Button>
+            <Button variant="ghost" size="sm">Log in</Button>
             <Button variant="primary" size="sm">Send Money</Button>
           </div>
         </div>

@@ -15,8 +15,8 @@ export default function Hero() {
           }}
         />
         <div
-          className="absolute bottom-[-20%] left-[-10%] w-[500px] h-[500px] rounded-full opacity-15"
-          style={{
+          className="absolute bottom-[-20%] left-[-10%] w-[500px] h-[500px] rounded-full"
+          style={{ opacity: 0.15,
             background: 'radial-gradient(circle, #E55600 0%, transparent 70%)',
             animation: 'blob 12s ease-in-out infinite reverse',
           }}
