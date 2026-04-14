@@ -4,6 +4,7 @@ import StatsBar from './components/StatsBar'
 import PricingTable from './components/PricingTable'
 import WhatsAppFeature from './components/WhatsAppFeature'
 import CashPickup from './components/CashPickup'
+import WaysToSend from './components/WaysToSend'
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <PricingTable />
         <WhatsAppFeature />
         <CashPickup />
+        <WaysToSend />
       </main>
     </div>
   )
