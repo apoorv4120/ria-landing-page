@@ -3,6 +3,7 @@ import Hero from './components/Hero'
 import StatsBar from './components/StatsBar'
 import PricingTable from './components/PricingTable'
 import WhatsAppFeature from './components/WhatsAppFeature'
+import CashPickup from './components/CashPickup'
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <StatsBar />
         <PricingTable />
         <WhatsAppFeature />
+        <CashPickup />
       </main>
     </div>
   )
