@@ -6,6 +6,7 @@ import WhatsAppFeature from './components/WhatsAppFeature'
 import CashPickup from './components/CashPickup'
 import WaysToSend from './components/WaysToSend'
 import AppShowcase from './components/AppShowcase'
+import Testimonials from './components/Testimonials'
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <CashPickup />
         <WaysToSend />
         <AppShowcase />
+        <Testimonials />
       </main>
     </div>
   )
