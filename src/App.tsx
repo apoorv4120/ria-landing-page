@@ -8,6 +8,8 @@ import WaysToSend from './components/WaysToSend'
 import AppShowcase from './components/AppShowcase'
 import Testimonials from './components/Testimonials'
 import Timeline from './components/Timeline'
+import FinalCTA from './components/FinalCTA'
+import Footer from './components/Footer'
 
 function App() {
   return (
@@ -23,7 +25,9 @@ function App() {
         <AppShowcase />
         <Testimonials />
         <Timeline />
+        <FinalCTA />
       </main>
+      <Footer />
     </div>
   )
 }
