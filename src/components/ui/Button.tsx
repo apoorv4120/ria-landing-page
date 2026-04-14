@@ -19,7 +19,7 @@ const variantClasses: Record<Variant, string> = {
 }
 
 const sizeClasses = {
-  sm: 'px-4 py-2 text-sm',
+  sm: 'px-4 py-2 text-sm min-h-[44px]',
   md: 'px-6 py-3 text-base min-h-[48px]',
   lg: 'px-8 py-4 text-lg min-h-[56px]',
 }
@@ -32,7 +32,7 @@ export default function Button({
   href,
   className = '',
 }: ButtonProps) {
-  const base = 'inline-flex items-center justify-center gap-2 rounded-full font-semibold transition-all duration-150 cursor-pointer'
+  const base = 'inline-flex items-center justify-center gap-2 rounded-full font-semibold transition-all duration-150 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2'
   const classes = `${base} ${variantClasses[variant]} ${sizeClasses[size]} ${className}`
 
   if (href) {

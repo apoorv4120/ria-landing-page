@@ -9,7 +9,7 @@ interface SectionRevealProps {
 
 export default function SectionReveal({ children, delay = 0, className = '' }: SectionRevealProps) {
   const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: '-80px' })
+  const isInView = useInView(ref, { once: true, margin: '-80px 0px 0px 0px' })
 
   return (
     <motion.div
