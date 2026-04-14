@@ -2,6 +2,7 @@ import Nav from './components/Nav'
 import Hero from './components/Hero'
 import StatsBar from './components/StatsBar'
 import PricingTable from './components/PricingTable'
+import WhatsAppFeature from './components/WhatsAppFeature'
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
         <Hero />
         <StatsBar />
         <PricingTable />
+        <WhatsAppFeature />
       </main>
     </div>
   )
