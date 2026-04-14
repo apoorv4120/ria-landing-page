@@ -1,0 +1,33 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:www.riamoneytransfer.com)",
+      "WebFetch(domain:wise.com)",
+      "WebFetch(domain:www.remitly.com)",
+      "Read(//Users/apoorvsingh/.claude/**)",
+      "Read(//Users/apoorvsingh/.claude/plugins/**)",
+      "Bash(cat /Users/apoorvsingh/.claude/skills/*.md)",
+      "Bash(mkdir -p /Users/apoorvsingh/.claude/skills/ria-content)",
+      "Bash(mkdir -p /Users/apoorvsingh/.claude/skills/ria-visual)",
+      "Bash(mkdir -p /Users/apoorvsingh/Documents/Ria/docs/superpowers/specs)",
+      "Bash(mkdir -p /Users/apoorvsingh/Documents/Ria/.claude/skills/ria-content)",
+      "Bash(mkdir -p /Users/apoorvsingh/Documents/Ria/.claude/skills/ria-visual)",
+      "Bash(mv /Users/apoorvsingh/.claude/skills/ria-content/SKILL.md /Users/apoorvsingh/Documents/Ria/.claude/skills/ria-content/SKILL.md)",
+      "Bash(mv /Users/apoorvsingh/.claude/skills/ria-visual/SKILL.md /Users/apoorvsingh/Documents/Ria/.claude/skills/ria-visual/SKILL.md)",
+      "Bash(rmdir /Users/apoorvsingh/.claude/skills/ria-content)",
+      "mcp__plugin_figma_figma__get_metadata",
+      "mcp__plugin_figma_figma__get_screenshot",
+      "mcp__plugin_figma_figma__use_figma",
+      "Bash(npm create:*)",
+      "Bash(npx create-vite@latest . --template react-ts)",
+      "Bash(npx create-vite@latest:*)",
+      "Bash(npm install:*)",
+      "Bash(npx tailwindcss:*)",
+      "Bash(npm run:*)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:5173)",
+      "Bash(git init:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)"
+    ]
+  }
+}
