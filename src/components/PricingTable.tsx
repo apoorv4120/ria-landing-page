@@ -24,7 +24,8 @@ export default function PricingTable() {
           </SectionReveal>
 
           <SectionReveal delay={0.1}>
-            <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-sm">
+            <div className="overflow-x-auto">
+            <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-sm min-w-[480px]">
               {/* Header */}
               <div className="grid grid-cols-4 bg-gray-50 border-b border-gray-200">
                 <div className="p-4" />
@@ -51,6 +52,7 @@ export default function PricingTable() {
                   <div className="p-4 text-center text-sm text-gray-400">{row.wu}</div>
                 </motion.div>
               ))}
+            </div>
             </div>
           </SectionReveal>
 
