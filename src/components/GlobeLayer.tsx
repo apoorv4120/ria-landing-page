@@ -282,7 +282,9 @@ export default function GlobeLayer() {
         }}
       />
 
-      {/* Fixed globe — desktop only, hidden on mobile */}
+      {/* Fixed globe — desktop only, hidden on mobile.
+          Pre-positioned via CSS to match the gsap.set() initial hero state,
+          so there is no flash-of-center between first paint and useEffect. */}
       <div
         ref={containerRef}
         aria-hidden="true"
@@ -293,6 +295,8 @@ export default function GlobeLayer() {
           width: 600,
           height: 600,
           zIndex: 1,
+          transform: 'translate(calc(-50% + 46vw), -50%) scale(2.4)',
+          opacity: 0.72,
         }}
       >
         <GlobeGL />
