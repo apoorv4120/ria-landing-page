@@ -23,14 +23,8 @@ const TRUST_SIGNALS = [
 export default function Hero() {
   return (
     <section
+      id="section-hero"
       className="relative min-h-screen flex items-center overflow-hidden pt-16"
-      style={{
-        background: `
-          radial-gradient(ellipse 70% 60% at 80% 10%,  #FF8C2A 0%, transparent 60%),
-          radial-gradient(ellipse 55% 50% at 10% 90%,  #C93D00 0%, transparent 55%),
-          radial-gradient(ellipse 80% 80% at 50% 50%,  #FF6100 0%, #E55200 100%)
-        `.trim(),
-      }}
     >
 
       {/* Animated background blobs */}

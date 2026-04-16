@@ -38,11 +38,8 @@ const CITIES = [
   { lat: 15.55,  lng: 32.53,   name: 'Addis Ababa'   },
 ]
 
-// Adds lat/long grid lines to the Three.js scene
 function addGridLines(scene: any, THREE: any, radius: number) {
   const STEPS = 128
-
-  // Latitude rings every 30°
   const latMat = new THREE.LineBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.35 })
   for (let lat = -60; lat <= 60; lat += 30) {
     const phi = (90 - lat) * (Math.PI / 180)
@@ -57,8 +54,6 @@ function addGridLines(scene: any, THREE: any, radius: number) {
     }
     scene.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts), latMat))
   }
-
-  // Equator — brighter
   const eqMat = new THREE.LineBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.55 })
   const eqPts: any[] = []
   for (let i = 0; i <= STEPS; i++) {
@@ -66,8 +61,6 @@ function addGridLines(scene: any, THREE: any, radius: number) {
     eqPts.push(new THREE.Vector3(radius * Math.cos(theta), 0, radius * Math.sin(theta)))
   }
   scene.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(eqPts), eqMat))
-
-  // Meridians every 30°
   const lngMat = new THREE.LineBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.25 })
   for (let lng = 0; lng < 360; lng += 30) {
     const theta = lng * (Math.PI / 180)
@@ -84,6 +77,7 @@ function addGridLines(scene: any, THREE: any, radius: number) {
   }
 }
 
+// Mobile-only fallback globe — identical logic to GlobeLayer's GlobeGL
 function GlobeGL() {
   const mountRef = useRef<HTMLDivElement>(null)
 
@@ -98,72 +92,42 @@ function GlobeGL() {
       import('topojson-client'),
     ]).then(([{ default: Globe }, THREE, { default: worldData }, topojson]) => {
       if (destroyed || !mountRef.current) return
-
       const el = mountRef.current
       const size = el.offsetWidth || 480
-
-      // Country polygons for continent outlines
       const countries = (topojson.feature as any)(worldData, (worldData as any).objects.countries)
-
       const globe = (Globe as any)({ animateIn: true, rendererConfig: { alpha: true, antialias: true } })(el)
-
-      // Orange globe fill
       globe.globeMaterial(new THREE.MeshBasicMaterial({ color: 0xFF6100 }))
-
       globe
-        .width(size)
-        .height(size)
-        .showAtmosphere(false)
-        // Country outline polygons — transparent fill, thick white stroke
+        .width(size).height(size).showAtmosphere(false)
         .polygonsData(countries.features)
         .polygonCapColor(() => 'rgba(0,0,0,0)')
         .polygonSideColor(() => 'rgba(255,255,255,0.15)')
         .polygonStrokeColor(() => '#ffffff')
         .polygonAltitude(0.006)
-        // Transfer arcs — white with glow gradient
         .arcsData(CORRIDORS)
-        .arcStartLat('startLat')
-        .arcStartLng('startLng')
-        .arcEndLat('endLat')
-        .arcEndLng('endLng')
+        .arcStartLat('startLat').arcStartLng('startLng')
+        .arcEndLat('endLat').arcEndLng('endLng')
         .arcLabel('label')
         .arcColor(() => ['rgba(255,255,255,0)', 'rgba(255,255,255,0.4)', 'rgba(255,255,255,1)', 'rgba(255,255,255,0.4)', 'rgba(255,255,255,0)'])
-        .arcAltitude(0.18)
-        .arcStroke(1.8)
-        .arcDashLength(0.35)
-        .arcDashGap(0.65)
-        .arcDashAnimateTime(2800)
-        // City dots
-        .pointsData(CITIES)
-        .pointLat('lat')
-        .pointLng('lng')
-        .pointLabel('name')
-        .pointColor(() => '#ffffff')
-        .pointAltitude(0.01)
-        .pointRadius(0.8)
-        // Pulse rings
-        .ringsData(CITIES)
-        .ringLat('lat')
-        .ringLng('lng')
+        .arcAltitude(0.18).arcStroke(1.8).arcDashLength(0.35).arcDashGap(0.65).arcDashAnimateTime(2800)
+        .pointsData(CITIES).pointLat('lat').pointLng('lng').pointLabel('name')
+        .pointColor(() => '#ffffff').pointAltitude(0.01).pointRadius(0.8)
+        .ringsData(CITIES).ringLat('lat').ringLng('lng')
         .ringColor(() => (t: number) => `rgba(255,97,0,${1 - t})`)
-        .ringMaxRadius(3.5)
-        .ringPropagationSpeed(1.5)
-        .ringRepeatPeriod(1200)
+        .ringMaxRadius(3.5).ringPropagationSpeed(1.5).ringRepeatPeriod(1200)
+      globe.backgroundColor('rgba(0,0,0,0)')
 
       globe.onGlobeReady(() => {
         const scene = (globe as any).scene()
         const renderer = (globe as any).renderer()
-        // No stacking context isolation here — blend mode reaches the orange section bg
-        renderer.domElement.style.mixBlendMode = 'screen'
+        renderer.setClearColor(0x000000, 0)
         addGridLines(scene, THREE, 101)
       })
-
       const controls = (globe as any).controls()
       controls.enableZoom = false
       controls.autoRotate = true
       controls.autoRotateSpeed = 1.5
       controls.enablePan = false
-
       globe.pointOfView({ lat: 20, lng: -30, altitude: 2.2 }, 0)
     })
 
@@ -188,16 +152,10 @@ function GlobeGL() {
 export default function CashPickup() {
   return (
     <section
+      id="section-cashpickup"
       className="relative section-padding overflow-hidden"
-      style={{
-        background: `
-          radial-gradient(ellipse 70% 60% at 80% 10%,  #FF8C2A 0%, transparent 60%),
-          radial-gradient(ellipse 55% 50% at 10% 90%,  #C93D00 0%, transparent 55%),
-          radial-gradient(ellipse 80% 80% at 50% 50%,  #FF6100 0%, #E55200 100%)
-        `.trim(),
-      }}
     >
-      {/* Blobs */}
+      {/* Depth blobs — render on top of the fixed orange backdrop */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
         <div
           className="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] rounded-full opacity-20"
@@ -215,9 +173,16 @@ export default function CashPickup() {
         />
       </div>
 
-      <div className="container-width relative">
+      <div className="container-width relative z-10">
         <div className="grid md:grid-cols-2 gap-16 items-center">
-          <GlobeGL />
+
+          {/* Mobile only: inline globe (desktop globe travels via GlobeLayer) */}
+          <div className="md:hidden">
+            <GlobeGL />
+          </div>
+
+          {/* Desktop: empty left column — fixed globe from GlobeLayer shows through */}
+          <div className="hidden md:block" aria-hidden="true" />
 
           <div>
             <SectionReveal>
