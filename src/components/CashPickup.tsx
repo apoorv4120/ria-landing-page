@@ -105,7 +105,7 @@ function GlobeGL() {
       // Country polygons for continent outlines
       const countries = (topojson.feature as any)(worldData, (worldData as any).objects.countries)
 
-      const globe = Globe({ animateIn: true, rendererConfig: { alpha: true, antialias: true } })(el)
+      const globe = (Globe as any)({ animateIn: true, rendererConfig: { alpha: true, antialias: true } })(el)
 
       // Orange globe fill
       globe.globeMaterial(new THREE.MeshBasicMaterial({ color: 0xFF6100 }))
