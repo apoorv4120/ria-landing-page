@@ -189,20 +189,20 @@ export default function GlobeLayer() {
     // xPercent:-50 yPercent:-50 centers it, then x/y offset shifts it.
     // All phases use fromTo so each has explicit start/end — no state bleed between phases.
 
-    gsap.set(el, {
-      xPercent: -50,
-      yPercent: -50,
-      x: vw * 0.46,
-      y: 0,
-      scale: 2.4,
-      opacity: 0.72,
-    })
+    // xPercent/yPercent center the 600px element on its anchor point (top:50vh left:50vw).
+    // They must appear in EVERY fromTo "from" — if omitted GSAP resets them to 0,
+    // which snaps the globe to center for one frame before ScrollTrigger kicks in.
+    const C = { xPercent: -50, yPercent: -50 } // centering shorthand
+
+    // gsap.set fires synchronously and reveals the globe at the correct hero position.
+    // The container starts at opacity:0 in CSS so it's invisible until this runs.
+    gsap.set(el, { ...C, x: vw * 0.46, y: 0, scale: 2.4, opacity: 0.72 })
 
     // Phase 1 — Hero: right/large → center/scaled-down
     const phase1 = gsap.fromTo(el,
-      { x: vw * 0.46, scale: 2.4, opacity: 0.72 },
+      { ...C, x: vw * 0.46, scale: 2.4, opacity: 0.72 },
       {
-        x: 0, scale: 1.5, opacity: 0.9,
+        ...C, x: 0, scale: 1.5, opacity: 0.9,
         ease: 'none',
         scrollTrigger: {
           trigger: '#section-hero',
@@ -215,14 +215,14 @@ export default function GlobeLayer() {
 
     // Phase 2a — CashPickup entry: center/scaled-up → left/home (scale 1.0)
     const phase2a = gsap.fromTo(el,
-      { x: 0, scale: 1.5, opacity: 0.9 },
+      { ...C, x: 0, scale: 1.5, opacity: 0.9 },
       {
-        x: vw * -0.23, scale: 1.0, opacity: 1,
+        ...C, x: vw * -0.23, scale: 1.0, opacity: 1,
         ease: 'none',
         scrollTrigger: {
           trigger: '#section-cashpickup',
-          start: 'top bottom',   // CashPickup enters viewport
-          end: 'center center',  // CashPickup settles in center
+          start: 'top bottom',
+          end: 'center center',
           scrub: 1.8,
         },
       }
@@ -230,14 +230,14 @@ export default function GlobeLayer() {
 
     // Phase 2b — CashPickup exit: left/home → center/scaled-up again
     const phase2b = gsap.fromTo(el,
-      { x: vw * -0.23, scale: 1.0, opacity: 1 },
+      { ...C, x: vw * -0.23, scale: 1.0, opacity: 1 },
       {
-        x: 0, scale: 1.4, opacity: 0.9,
+        ...C, x: 0, scale: 1.4, opacity: 0.9,
         ease: 'none',
         scrollTrigger: {
           trigger: '#section-cashpickup',
-          start: 'center center', // begins as section starts to leave
-          end: 'bottom top',      // completes when section is fully scrolled past
+          start: 'center center',
+          end: 'bottom top',
           scrub: 1.8,
         },
       }
@@ -245,9 +245,9 @@ export default function GlobeLayer() {
 
     // Phase 3 — FinalCTA: center/medium → center/huge/faded backdrop
     const phase3 = gsap.fromTo(el,
-      { x: 0, scale: 1.4, opacity: 0.9 },
+      { ...C, x: 0, scale: 1.4, opacity: 0.9 },
       {
-        x: 0, scale: 2.4, opacity: 0.18,
+        ...C, x: 0, scale: 2.4, opacity: 0.18,
         ease: 'none',
         scrollTrigger: {
           trigger: '#section-finalcta',
@@ -296,7 +296,7 @@ export default function GlobeLayer() {
           height: 600,
           zIndex: 1,
           transform: 'translate(calc(-50% + 46vw), -50%) scale(2.4)',
-          opacity: 0.72,
+          opacity: 0, // invisible until gsap.set() fires — prevents flash-of-wrong-position
         }}
       >
         <GlobeGL />
