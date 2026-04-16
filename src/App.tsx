@@ -1,6 +1,7 @@
 import Nav from './components/Nav'
 import Hero from './components/Hero'
 import StatsBar from './components/StatsBar'
+import PartnersCarousel from './components/PartnersCarousel'
 import PricingTable from './components/PricingTable'
 import WhatsAppFeature from './components/WhatsAppFeature'
 import CashPickup from './components/CashPickup'
@@ -18,6 +19,7 @@ function App() {
       <main>
         <Hero />
         <StatsBar />
+        <PartnersCarousel />
         <PricingTable />
         <WhatsAppFeature />
         <CashPickup />
